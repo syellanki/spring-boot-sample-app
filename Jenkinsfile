@@ -44,7 +44,8 @@ pipeline {
             // Run integration test
             steps {
                 script {
-                    def mvnHome = tool 'Maven 3.3.9'
+                    //def mvnHome = tool 'Maven 3.3.9'
+                    def mvnHome = tool 'mvn-3.5'
                     if (isUnix()) {
                         // just to trigger the integration test without unit testing
                         sh "'${mvnHome}/bin/mvn'  verify -Dunit-tests.skip=true"
@@ -137,7 +138,8 @@ pipeline {
             steps {
                 // create the release version then create a tage with it , then push to nexus releases the released jar
                 script {
-                    def mvnHome = tool 'Maven 3.3.9' //
+                    //def mvnHome = tool 'Maven 3.3.9' //
+                    def mvnHome = tool 'mvn-3.5'
                     if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
                         def v = getReleaseVersion()
                         releasedVersion = v;
