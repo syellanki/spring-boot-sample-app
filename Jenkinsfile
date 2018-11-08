@@ -62,7 +62,8 @@ pipeline {
             // Run the sonar scan
             steps {
                 script {
-                    def mvnHome = tool 'Maven 3.3.9'
+                    //def mvnHome = tool 'Maven 3.3.9'
+                    def mvnHome = tool 'mvn-3.5'
                     withSonarQubeEnv {
 
                         sh "'${mvnHome}/bin/mvn'  verify sonar:sonar -Dintegration-tests.skip=true -Dmaven.test.failure.ignore=true"
@@ -120,7 +121,8 @@ pipeline {
                     if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
                         timeout(time: 1, unit: 'MINUTES') {
                             script {
-                                def mvnHome = tool 'Maven 3.3.9'
+                                //def mvnHome = tool 'Maven 3.3.9'
+                                def mvnHome = tool 'mvn-3.5'
                                 //NOTE : if u change the sanity test class name , change it here as well
                                 sh "'${mvnHome}/bin/mvn' -Dtest=ApplicationSanityCheck_ITT surefire:test"
                             }
